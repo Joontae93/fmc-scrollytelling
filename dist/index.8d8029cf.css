@@ -1,0 +1,60 @@
+#scroll {
+  position: relative;
+}
+
+.scroll__graphic {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  left: 0;
+  transform: translate3d(0, 0, 0);
+}
+
+.scroll__graphic.is-fixed {
+  position: fixed;
+}
+
+.scroll__graphic.is-bottom {
+  top: auto;
+  bottom: 0;
+}
+
+.scroll__graphic .chart {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+}
+
+.scroll__text {
+  max-width: 30rem;
+  padding: 0 1rem;
+}
+
+.step {
+  opacity: 0;
+  padding: 1rem;
+}
+
+.step.is-active {
+  opacity: 1;
+}
+
+*, :after, :before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: Arial;
+  font-size: 1.6rem;
+}
+
+/*# sourceMappingURL=index.8d8029cf.css.map */
