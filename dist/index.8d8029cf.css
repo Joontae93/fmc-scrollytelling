@@ -12,7 +12,7 @@
 }
 
 .scroll__graphic.is-fixed {
-  position: fixed;
+  position: sticky;
 }
 
 .scroll__graphic.is-bottom {

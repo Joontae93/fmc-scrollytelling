@@ -560,9 +560,10 @@ function handleResize() {
     scroller.resize();
 }
 function handleStepEnter(res) {
+    console.log(res.classList);
     // res = {el, direction, index}
     // 1. Fade in current step
-    if (step.classList.contains("is-active")) (d, i)=>i === res.index;
+    if (res.classList.contains("is-active")) (d, i)=>i === res.index;
     const stepData = step.attributes("data-step");
 }
 function handleContainerEnter(res) {
@@ -589,12 +590,9 @@ function init() {
         graphic: ".scroll__graphic",
         text: ".scroll__text",
         step: ".scroll__text .step",
-        offset: 0.5,
-        debug: true
+        offset: 0.5
     });
     scroller.onStepEnter(handleStepEnter);
-    scroller.onContainerEnter(handleContainerEnter);
-    scroller.onContainerExit(handleContainerExit);
     window.addEventListener("resize", handleResize);
 }
 init();

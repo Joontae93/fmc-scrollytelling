@@ -11,7 +11,7 @@
 		transform: translate3d(0, 0, 0);
 
 		&.is-fixed {
-			position: fixed;
+			position: sticky;
 		}
 		&.is-bottom {
 			bottom: 0;
