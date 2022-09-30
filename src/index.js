@@ -5,11 +5,11 @@ if (module.hot) {
 	module.hot.accept();
 }
 
-const container = document.getElementById('scroll'),
-	graphic = querySelector('.scroll__graphic'),
+const graphic = querySelector('.scroll__graphic'),
 	chart = querySelector('.chart'),
 	text = querySelector('.scroll__text'),
-	step = querySelector('.step', true);
+	step = querySelector('.step', true),
+	counter = querySelector('.chart__counter');
 
 var scroller = scrollama();
 
@@ -35,45 +35,53 @@ function handleResize() {
 	// 4. Tell Scrollama to update new element dimensions
 	scroller.resize();
 }
+/** @param {object} res element, index, direction */
 function handleStepEnter(res) {
-	console.log(res.classList);
-	// res = {el, direction, index}
+	const { element, index } = res;
 	// 1. Fade in current step
-	if (res.classList.contains('is-active')) {
-		(d, i) => i === res.index;
+	if (!element.classList.contains('is-active')) {
+		element.classList.add('is-active');
+		console.log(`Active class added to Step ${index + 1}!`);
 	}
-	const stepData = step.attributes('data-step');
+
+	// 2. Add Stickyness
+	if (!graphic.classList.contains('is-fixed'))
+		graphic.classList.add('is-fixed');
+
+	// 3. Update Counter
+	counter.innerHTML = 1 + parseInt(counter.innerHTML);
+
+	// if (graphic.classList.contains('is-bottom'))
+	// 	graphic.classList.remove('is-bottom');
+
+	// const stepData = step.setAttribute('data-step');
 }
-function handleContainerEnter(res) {
-	// response = {direction}
-	if (graphic.classList.contains('is-fixed')) return;
-	if (graphic.classList.contains('is-bottom'))
-		graphic.classList.remove('is-bottom');
-}
-function handleContainerExit(res) {
+
+function handleStepExit(res) {
+	const { element, index, direction } = res;
+	console.log(`Exited Step ${index + 1}`);
 	// response = { direction }
-	if (graphic.classList.contains('is-bottom')) {
-		graphic.classList.add('is-bottom');
-		res.direction === 'down';
-	}
-	if (graphic.classList.contains('is-fixed'))
-		graphic.classList.remove('is-fixed');
+	// if (!graphic.classList.contains('is-bottom')) {
+	// 	graphic.classList.add('is-bottom');
+	// 	res.direction === 'down';
+	// }
+	// if (graphic.classList.contains('is-fixed'))
+	// 	graphic.classList.remove('is-fixed');
 }
 function init() {
 	console.log('Ready to start!');
 	// 1. Call a resize on load to update width/height/position of elements
 	handleResize();
 	// 2. Setup the Scrollama Instance
-	// 3. Bind Scrollama event Handlers
 	scroller.setup({
 		container: '#scroll',
 		graphic: '.scroll__graphic',
-		text: '.scroll__text',
 		step: '.scroll__text .step',
 		offset: 0.5,
-		// debug: true,
 	});
+	// 3. Bind Scrollama event Handlers
 	scroller.onStepEnter(handleStepEnter);
+	scroller.onStepExit(handleStepExit);
 	window.addEventListener('resize', handleResize);
 }
 

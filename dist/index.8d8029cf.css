@@ -1,9 +1,14 @@
 #scroll {
+  max-width: 1200px;
+  width: 88%;
+  border: 3px dashed #ff4500;
+  margin: 0 auto;
   position: relative;
 }
 
 .scroll__graphic {
   width: 100%;
+  margin: 0;
   position: absolute;
   top: 0;
   bottom: auto;
@@ -21,24 +26,36 @@
 }
 
 .scroll__graphic .chart {
+  border: 2px solid #000;
+  border-radius: 1rem;
+  padding: 2rem;
   position: absolute;
   top: 50%;
   right: 1rem;
-  transform: translateY(-50%);
+  transform: translateY(-75%);
 }
 
 .scroll__text {
   max-width: 30rem;
   padding: 0 1rem;
+  position: relative;
 }
 
 .step {
   opacity: 0;
+  color: #fff;
+  background-color: #3b3b3b;
+  border: 2px solid gray;
+  border-radius: 7px;
+  margin-bottom: 2rem;
   padding: 1rem;
+  transition: all .3s;
 }
 
 .step.is-active {
   opacity: 1;
+  color: #3b3b3b;
+  background-color: #daa520;
 }
 
 *, :after, :before {
@@ -53,8 +70,17 @@ html {
 
 body {
   box-sizing: border-box;
+  padding: 6.5rem 0;
   font-family: Arial;
   font-size: 1.6rem;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  text-align: center;
 }
 
 /*# sourceMappingURL=index.8d8029cf.css.map */

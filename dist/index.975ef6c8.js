@@ -538,7 +538,7 @@ var _utilities = require("./modules/utilities");
 var _scrollama = require("scrollama");
 var _scrollamaDefault = parcelHelpers.interopDefault(_scrollama);
 if (module.hot) module.hot.accept();
-const container = document.getElementById("scroll"), graphic = (0, _utilities.querySelector)(".scroll__graphic"), chart = (0, _utilities.querySelector)(".chart"), text = (0, _utilities.querySelector)(".scroll__text"), step = (0, _utilities.querySelector)(".step", true);
+const graphic = (0, _utilities.querySelector)(".scroll__graphic"), chart = (0, _utilities.querySelector)(".chart"), text = (0, _utilities.querySelector)(".scroll__text"), step = (0, _utilities.querySelector)(".step", true), counter = (0, _utilities.querySelector)(".chart__counter");
 var scroller = (0, _scrollamaDefault.default)();
 function handleResize() {
     // 1. Update height of step elements for breathing room between steps
@@ -559,40 +559,46 @@ function handleResize() {
     // 4. Tell Scrollama to update new element dimensions
     scroller.resize();
 }
-function handleStepEnter(res) {
-    console.log(res.classList);
-    // res = {el, direction, index}
+/** @param {object} res element, index, direction */ function handleStepEnter(res) {
+    const { element , index  } = res;
     // 1. Fade in current step
-    if (res.classList.contains("is-active")) (d, i)=>i === res.index;
-    const stepData = step.attributes("data-step");
-}
-function handleContainerEnter(res) {
-    // response = {direction}
-    if (graphic.classList.contains("is-fixed")) return;
-    if (graphic.classList.contains("is-bottom")) graphic.classList.remove("is-bottom");
-}
-function handleContainerExit(res) {
-    // response = { direction }
-    if (graphic.classList.contains("is-bottom")) {
-        graphic.classList.add("is-bottom");
-        res.direction;
+    if (!element.classList.contains("is-active")) {
+        element.classList.add("is-active");
+        console.log(`Active class added to Step ${index + 1}!`);
     }
-    if (graphic.classList.contains("is-fixed")) graphic.classList.remove("is-fixed");
+    // 2. Add Stickyness
+    if (!graphic.classList.contains("is-fixed")) graphic.classList.add("is-fixed");
+    // 3. Update Counter
+    counter.innerHTML = 1 + parseInt(counter.innerHTML);
+// if (graphic.classList.contains('is-bottom'))
+// 	graphic.classList.remove('is-bottom');
+// const stepData = step.setAttribute('data-step');
+}
+function handleStepExit(res) {
+    const { element , index , direction  } = res;
+    console.log(`Exited Step ${index + 1}`);
+// response = { direction }
+// if (!graphic.classList.contains('is-bottom')) {
+// 	graphic.classList.add('is-bottom');
+// 	res.direction === 'down';
+// }
+// if (graphic.classList.contains('is-fixed'))
+// 	graphic.classList.remove('is-fixed');
 }
 function init() {
     console.log("Ready to start!");
     // 1. Call a resize on load to update width/height/position of elements
     handleResize();
     // 2. Setup the Scrollama Instance
-    // 3. Bind Scrollama event Handlers
     scroller.setup({
         container: "#scroll",
         graphic: ".scroll__graphic",
-        text: ".scroll__text",
         step: ".scroll__text .step",
         offset: 0.5
     });
+    // 3. Bind Scrollama event Handlers
     scroller.onStepEnter(handleStepEnter);
+    scroller.onStepExit(handleStepExit);
     window.addEventListener("resize", handleResize);
 }
 init();

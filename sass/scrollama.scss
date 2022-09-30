@@ -1,5 +1,9 @@
 #scroll {
 	position: relative;
+	border: 3px dashed orangered;
+	max-width: 1200px;
+	width: 88%;
+	margin: 0 auto;
 }
 .scroll {
 	&__graphic {
@@ -8,6 +12,7 @@
 		left: 0;
 		bottom: auto;
 		width: 100%;
+		margin: 0;
 		transform: translate3d(0, 0, 0);
 
 		&.is-fixed {
@@ -21,18 +26,30 @@
 			position: absolute;
 			right: 1rem;
 			top: 50%;
-			transform: translateY(-50%);
+			transform: translateY(-75%);
+			border: 2px solid black;
+			border-radius: 1rem;
+			padding: 2rem;
 		}
 	}
 	&__text {
 		padding: 0 1rem;
 		max-width: 30rem;
+		position: relative;
 	}
 }
 .step {
 	opacity: 0;
 	padding: 1rem;
+	border: 2px solid grey;
+	border-radius: 7px;
+	background-color: #3b3b3b;
+	color: #fff;
+	margin-bottom: 2rem;
+	transition: all 0.3s ease;
 	&.is-active {
 		opacity: 1;
+		background-color: goldenrod;
+		color: #3b3b3b;
 	}
 }
