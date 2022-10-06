@@ -8,16 +8,12 @@
 
 .scroll__graphic {
   width: 100%;
+  background-color: #4b4b4b;
   margin: 0;
   position: absolute;
   top: 0;
-  bottom: auto;
   left: 0;
   transform: translate3d(0, 0, 0);
-}
-
-.scroll__graphic.is-fixed {
-  position: sticky;
 }
 
 .scroll__graphic.is-bottom {
@@ -26,13 +22,13 @@
 }
 
 .scroll__graphic .chart {
+  background-color: #fff;
   border: 2px solid #000;
   border-radius: 1rem;
   padding: 2rem;
-  position: absolute;
+  position: sticky;
   top: 50%;
   right: 1rem;
-  transform: translateY(-75%);
 }
 
 .scroll__text {

@@ -19,54 +19,35 @@ function handleResize() {
 	step.forEach((el) => {
 		el.style.height = `${stepHeight}px`;
 	});
-
-	// 2. Update height of graphic element
-	const bodyWidth = document.querySelector('body').offsetWidth;
 	graphic.style.height = `${window.innerHeight}px`;
 
-	// 3. Update width of chart by subtracting from text width
 	const chartMargin = 32;
 	const textWidth = text.offsetWidth;
 	const chartWidth = graphic.offsetWidth - textWidth - chartMargin;
+	// make the height 1/2 of viewport
 	const chartHeight = Math.floor(window.innerHeight / 2);
+
 	chart.style.width = `${chartWidth}px`;
 	chart.style.height = `${chartHeight}px`;
-
-	// 4. Tell Scrollama to update new element dimensions
 	scroller.resize();
 }
 /** @param {object} res element, index, direction */
 function handleStepEnter(res) {
+	console.log(res);
 	const { element, index } = res;
+	console.log(`handling step ${index + 1}`);
 	// 1. Fade in current step
 	if (!element.classList.contains('is-active')) {
 		element.classList.add('is-active');
-		console.log(`Active class added to Step ${index + 1}!`);
 	}
-
-	// 2. Add Stickyness
-	if (!graphic.classList.contains('is-fixed'))
-		graphic.classList.add('is-fixed');
-
-	// 3. Update Counter
-	counter.innerHTML = 1 + parseInt(counter.innerHTML);
-
-	// if (graphic.classList.contains('is-bottom'))
-	// 	graphic.classList.remove('is-bottom');
-
-	// const stepData = step.setAttribute('data-step');
 }
-
 function handleStepExit(res) {
-	const { element, index, direction } = res;
-	console.log(`Exited Step ${index + 1}`);
-	// response = { direction }
-	// if (!graphic.classList.contains('is-bottom')) {
-	// 	graphic.classList.add('is-bottom');
-	// 	res.direction === 'down';
-	// }
-	// if (graphic.classList.contains('is-fixed'))
-	// 	graphic.classList.remove('is-fixed');
+	const { element, index } = res;
+	console.log(`handling exit at step ${index + 1}`);
+	if (element.classList.contains('is-active')) {
+		// if (index === 0) return;
+		element.classList.remove('is-active');
+	}
 }
 function init() {
 	console.log('Ready to start!');
@@ -74,14 +55,12 @@ function init() {
 	handleResize();
 	// 2. Setup the Scrollama Instance
 	scroller.setup({
-		container: '#scroll',
-		graphic: '.scroll__graphic',
 		step: '.scroll__text .step',
 		offset: 0.5,
 	});
 	// 3. Bind Scrollama event Handlers
 	scroller.onStepEnter(handleStepEnter);
-	scroller.onStepExit(handleStepExit);
+	// scroller.onStepExit(handleStepExit);
 	window.addEventListener('resize', handleResize);
 }
 

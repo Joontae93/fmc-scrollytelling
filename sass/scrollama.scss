@@ -10,26 +10,24 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		bottom: auto;
 		width: 100%;
 		margin: 0;
 		transform: translate3d(0, 0, 0);
+		background-color: #4b4b4b;
 
-		&.is-fixed {
-			position: sticky;
-		}
 		&.is-bottom {
 			bottom: 0;
 			top: auto;
 		}
 		.chart {
-			position: absolute;
 			right: 1rem;
 			top: 50%;
-			transform: translateY(-75%);
+			// transform: translateY(-50%);
+			position: sticky;
 			border: 2px solid black;
 			border-radius: 1rem;
 			padding: 2rem;
+			background-color: white;
 		}
 	}
 	&__text {
